@@ -1,4 +1,4 @@
-ifeq ($(TARGET_CPU_ENDIAN), EL)
+ifeq ($(TARGET_CPU_ENDIAN), EB)
     LOCAL_PATH := $(call my-dir)
     include $(CLEAR_VARS)
 
