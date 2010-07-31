@@ -1,11 +1,16 @@
 #
-# MIPS 34K
+# MIPS 1004K
 #
-# The 34K CPUs have two performance counters per TC, with the maximum hardware 
-# configuration of 18 counters for a 9-TC CPU.
+# The 1004K CPUs have two performance counters per TC. 
+# Oprofile events are supported by maximum 18 counters. 
+
+# For example, 18 counters are enough to profile an hypothetical
+# 9-core CPU, each core with 2 VPE and 2 TCs (i.e. one TC per VPE). 
+# Becuase each core has 2 TCs and therefore 4 performance counters, 
+# only 4 events can be effectively used. 
 #
-# The counters can be optionally limited to count events only on a single
-# VPE or even TC.
+# The counters available on a core can be optionally limited to count 
+# events only on a single VPE or even TC on the same core. 
 #
 # Even/Odd counters are distinguished by setting bit 10 in the event mask
 # The kernel masks this bit out before writing the control register
@@ -54,6 +59,7 @@ event:0x20 counters:0,2,4,6,8,10,12,14,16 um:zero minimum:500 name:ITC_LOADS : 3
 event:0x21 counters:0,2,4,6,8,10,12,14,16 um:zero minimum:500 name:UNCACHED_LOAD_INSNS : 33-0 Uncached load instructions
 event:0x22 counters:0,2,4,6,8,10,12,14,16 um:zero minimum:500 name:FORK_INSNS : 34-0 Fork instructions completed
 event:0x23 counters:0,2,4,6,8,10,12,14,16 um:zero minimum:500 name:CP2_ARITH_INSNS : 35-0 CP2 arithmetic instructions completed
+event:0x24 counters:0,2,4,6,8,10,12,14,16 um:zero minimum:500 name:INTERVENTION_STALLS : 36-0 Cache coherence intervention processing stall cycles
 
 #
 #  Count number of cycles (most often ``stall cycles'', ie time lost), not just number of events.
@@ -79,6 +85,7 @@ event:0x31 counters:0,2,4,6,8,10,12,14,16 um:zero minimum:500 name:EJTAG_INSN_TR
 #  FSB (``fill/store buffer'')
 #  LDQ (``load queue'')
 #  WBB (``write-back buffer'')
+#  Some count events, others count stall cycles.
 #
 event:0x32 counters:0,2,4,6,8,10,12,14,16 um:zero minimum:500 name:FSB_LESS_25_FULL : 50-0 FSB < 25% full
 event:0x33 counters:0,2,4,6,8,10,12,14,16 um:zero minimum:500 name:FSB_OVER_50_FULL : 51-0 FSB > 50% full
@@ -87,6 +94,12 @@ event:0x35 counters:0,2,4,6,8,10,12,14,16 um:zero minimum:500 name:LDQ_OVER_50_F
 event:0x36 counters:0,2,4,6,8,10,12,14,16 um:zero minimum:500 name:WBB_LESS_25_FULL : 54-0 WBB < 25% full
 event:0x37 counters:0,2,4,6,8,10,12,14,16 um:zero minimum:500 name:WBB_OVER_50_FULL : 55-0 WBB > 50% full
 
+event:0x38 counters:0,2,4,6,8,10,12,14,16 um:zero minimum:500 name:INTERVENTION_HIT_COUNT : 56-0 External interventions that hit in the cache 
+event:0x39 counters:1,3,5,7,9,11,13,15,17 um:zero minimum:500 name:INVALIDATE_INTERVENTION_COUNT : 57-0 External invalidate (i.e. leaving a cache line in the invalid state) interventions
+event:0x3a counters:0,2,4,6,8,10,12,14,16 um:zero minimum:500 name:EVICTION_COUNT : 58-0   Cache lines written back due to cache replacement or non-coherent cache operation
+event:0x3b counters:0,2,4,6,8,10,12,14,16 um:zero minimum:500 name:MESI_INVAL_COUNT : 59-0 MESI protocol transitions into invalid state
+event:0x3c counters:0,2,4,6,8,10,12,14,16 um:zero minimum:500 name:MESI_MODIFIED_COUNT : 60-0 MESI protocol transitions into modified state
+event:0x3d counters:0,2,4,6,8,10,12,14,16 um:zero minimum:500 name:SELF_INTERVENTION_LATENCY : 61-0 Latency from miss detection to self intervention
 event:0x3e counters:0,2,4,6,8,10,12,14,16 um:zero minimum:500 name:READ_RESPONSE_LATENCY : 62-0 Read latency from miss detection until critical dword of response is returned
 
 #
@@ -125,12 +138,13 @@ event:0x41f counters:0,2,4,6,8,10,12,14,16 um:zero minimum:500 name:ITC_EVENT : 
 
 event:0x421 counters:1,3,5,7,9,11,13,15,17 um:zero minimum:500 name:UNCACHED_STORE_INSNS : 33-1 Uncached store instructions
 event:0x423 counters:1,3,5,7,9,11,13,15,17 um:zero minimum:500 name:CP2_TO_FROM_INSNS : 35-1 CP2 to/from instructions (moves, control, loads, stores)
+event:0x424 counters:1,3,5,7,9,11,13,15,17 um:zero minimum:500 name:INTERVENTION_MISS_STALLS : 36-1 Cache coherence intervention processing stall cycles due to an earlier miss
 
 #
 #  Count number of cycles (most often ``stall cycles'', ie time lost), not just number of events.
 #
 event:0x425 counters:1,3,5,7,9,11,13,15,17 um:zero minimum:500 name:DCACHE_MISS_STALLS : 37-1 Stall cycles due to a data cache miss
-
+event:0x426 counters:1,3,5,7,9,11,13,15,17 um:zero minimum:500 name:FSB_INDEX_CONFLICT_STALLS : 38-1 FSB (fill/store buffer) index conflict stall cycles
 event:0x427 counters:1,3,5,7,9,11,13,15,17 um:zero minimum:500 name:L2_CACHE_MISS_CYCLES : 39-1 Cycles a L2 miss is outstanding, but not necessarily stalling the pipeline
 event:0x428 counters:1,3,5,7,9,11,13,15,17 um:zero minimum:500 name:ITC_STALLS : 40-1 ITC stall cycles
 event:0x429 counters:1,3,5,7,9,11,13,15,17 um:zero minimum:500 name:FPU_STALLS : 41-1 FPU stall cycles
@@ -157,4 +171,11 @@ event:0x435 counters:1,3,5,7,9,11,13,15,17 um:zero minimum:500 name:LDQ_FULL_PIP
 event:0x436 counters:1,3,5,7,9,11,13,15,17 um:zero minimum:500 name:WBB_25_50_FULL : 54-1 WBB 25-50% full
 event:0x437 counters:1,3,5,7,9,11,13,15,17 um:zero minimum:500 name:WBB_FULL_PIPE_STALLS : 55-1 WBB full pipeline stall cycles
 
+event:0x438 counters:1,3,5,7,9,11,13,15,17 um:zero minimum:500 name:INTERVENTION_COUNT : 56-1 External interventions
+event:0x439 counters:1,3,5,7,9,11,13,15,17 um:zero minimum:500 name:INVALIDATE_INTERVENTION_HIT_COUNT : 57-1 External invalidate interventions that hit in the cache
+event:0x43a counters:1,3,5,7,9,11,13,15,17 um:zero minimum:500 name:WRITEBACK_COUNT : 58-1 Cache lines written back due to cache replacement or any cache operation (non-coherent, self, or external coherent)
+event:0x43b counters:1,3,5,7,9,11,13,15,17 um:zero minimum:500 name:MESI_EXCLUSIVE_COUNT : 59-1 MESI protocol transitions into exclusive state
+event:0x43c counters:1,3,5,7,9,11,13,15,17 um:zero minimum:500 name:MESI_SHARED_COUNT : 60-1 MESI protocol transitions into shared state
+event:0x43d counters:1,3,5,7,9,11,13,15,17 um:zero minimum:500 name:SELF_INTERVENTION_COUNT : 61-1 Self intervention requests on miss detection
 event:0x43e counters:1,3,5,7,9,11,13,15,17 um:zero minimum:500 name:READ_RESPONSE_COUNT : 62-1 Read requests on miss detection
+
