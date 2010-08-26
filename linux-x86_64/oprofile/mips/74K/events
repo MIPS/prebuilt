@@ -1,10 +1,12 @@
 #
 # MIPS 74K
 #
+
 # The 74K CPUs have four performance counters.
 #
-# Even/Odd counters are distinguished by setting bit 10 in the event mask
-# The kernel masks this bit out before writing the control register
+# Even/odd counters are distinguished by setting bit 10 in the event
+# mask. The kernel masks this bit out before writing the control
+# register.
 
 #
 # Events specific to all counters
@@ -44,7 +46,7 @@ event:0x1b counters:0,2 um:zero minimum:500 name:LOAD_STORE_BLOCKED_CYCLES : 27-
 event:0x1c counters:0,2 um:zero minimum:500 name:L2_CACHE_WRITEBACKS : 28-0 L2 Cache Writebacks
 event:0x1d counters:0,2 um:zero minimum:500 name:L2_CACHE_MISSES : 29-0 L2 Cache Misses
 event:0x1e counters:0,2 um:zero minimum:500 name:FSB_FULL_STALLS : 30-0 Pipe stall cycles due to FSB full
-event:0x1f counters:0,2 um:zero minimum:500 name:LDQ_FULL_STALS : 31-0 Pipe stall cycles due to LDQ full
+event:0x1f counters:0,2 um:zero minimum:500 name:LDQ_FULL_STALLS : 31-0 Pipe stall cycles due to LDQ full
 event:0x20 counters:0,2 um:zero minimum:500 name:WBB_FULL_STALLS : 32-0 Pipe stall cycles due to WBB full
 
 event:0x23 counters:0,2 um:zero minimum:500 name:LOAD_MISS_CONSUMER_REPLAYS : 35-0 Replays following optimistic issue of instruction dependent on load which missed, counted only when the dependent instruction graduates
@@ -74,14 +76,17 @@ event:0x3b counters:0,2 um:zero minimum:500 name:COREEXTEND_EVENTS : 59-0 Implem
 
 event:0x3e counters:0,2 um:zero minimum:500 name:ISPRAM_EVENTS : 62-0 Implementation specific ISPRAM events
 event:0x3f counters:0,2 um:zero minimum:500 name:L2_CACHE_SINGLE_BIT_ERRORS : 63-0 Single bit errors corrected in L2
+event:0x40 counters:0,2 um:zero minimum:500 name:SYSTEM_EVENT_0 : 64-0 Implementation specific system event 0
+event:0x41 counters:0,2 um:zero minimum:500 name:SYSTEM_EVENT_2 : 65-0 Implementation specific system event 2
+event:0x42 counters:0,2 um:zero minimum:500 name:SYSTEM_EVENT_4 : 66-0 Implementation specific system event 4
+event:0x43 counters:0,2 um:zero minimum:500 name:SYSTEM_EVENT_6 : 67-0 Implementation specific system event 6
+event:0x44 counters:0,2 um:zero minimum:500 name:OCP_ALL_REQUESTS : 68-0 All OCP requests accepted
+event:0x45 counters:0,2 um:zero minimum:500 name:OCP_READ_REQUESTS : 69-0 OCP read requests accepted
+event:0x46 counters:0,2 um:zero minimum:500 name:OCP_WRITE_REQUESTS : 70-0 OCP write requests accepted
 
-event:0x44 counters:0,2 um:zero minimum:500 name:OCP_ANY_REQUESTS : 68-0 Any OCP request accepted
-event:0x45 counters:0,2 um:zero minimum:500 name:OCP_READ_REQUESTS : 69-0 OCP read request accepted
-event:0x46 counters:0,2 um:zero minimum:500 name:OCP_WRITE_REQUESTS : 70-0 OCP write request accepted
-
-event:0x4a counters:0,2 um:zero minimum:500 name:FSB_0_25_FULL : 74-0 FSB < 25% full
-event:0x4b counters:0,2 um:zero minimum:500 name:LDQ_0_25_FULL : 75-0 LDQ < 25% full
-event:0x4c counters:0,2 um:zero minimum:500 name:WBB_0_25_FULL : 76-0 WBB < 25% full
+event:0x4a counters:0,2 um:zero minimum:500 name:FSB_LESS_25_FULL : 74-0 FSB < 25% full
+event:0x4b counters:0,2 um:zero minimum:500 name:LDQ_LESS_25_FULL : 75-0 LDQ < 25% full
+event:0x4c counters:0,2 um:zero minimum:500 name:WBB_LESS_25_FULL : 76-0 WBB < 25% full
 
 
 #
@@ -116,9 +121,9 @@ event:0x41a counters:1,3 um:zero minimum:500 name:VA_TRANSALTION_CORNER_CASES : 
 event:0x41b counters:1,3 um:zero minimum:500 name:LOAD_STORE_NO_FILL_REQUESTS : 27-1 Load/store graduations not resulting in a bus request because misses at integer pipe graduation turn into hit or merge with outstanding fill request
 event:0x41c counters:1,3 um:zero minimum:500 name:L2_CACHE_ACCESSES : 28-1 Accesses to the L2 cache
 event:0x41d counters:1,3 um:zero minimum:500 name:L2_CACHE_MISS_CYCLES : 29-1 Cycles a L2 miss is outstanding, but not necessarily stalling the pipeline
-event:0x41e counters:1,3 um:zero minimum:500 name:FSB_50_100_FULL : 30-1 FSB > 50% full
-event:0x41f counters:1,3 um:zero minimum:500 name:LDQ_50_100_FULL : 31-1 LDQ > 50% full
-event:0x420 counters:1,3 um:zero minimum:500 name:WBB_50_100_FULL : 32-1 WBB > 50% full
+event:0x41e counters:1,3 um:zero minimum:500 name:FSB_OVER_50_FULL : 30-1 FSB > 50% full
+event:0x41f counters:1,3 um:zero minimum:500 name:LDQ_OVER_50_FULL : 31-1 LDQ > 50% full
+event:0x420 counters:1,3 um:zero minimum:500 name:WBB_OVER_50_FULL : 32-1 WBB > 50% full
 
 event:0x423 counters:1,3 um:zero minimum:500 name:CP1_CP2_LOAD_INSNS : 35-1 CP1/CP2 load instructions graduated
 event:0x424 counters:1,3 um:zero minimum:500 name:MISPREDICTED_JR_31_INSNS : 36-1 jr $31 instructions graduated after mispredict
@@ -140,3 +145,15 @@ event:0x436 counters:1,3 um:zero minimum:500 name:TWO_INSNS_CYCLES : 54-1 Two in
 event:0x437 counters:1,3 um:zero minimum:500 name:CP1_CP2_STORE_INSNS : 55-1 CP1/CP2 Store graduated
 event:0x43a counters:1,3 um:zero minimum:500 name:GRADUATION_REPLAYS : 58-1 Replays initiated from graduation
 event:0x43e counters:1,3 um:zero minimum:500 name:DSPRAM_EVENTS : 62-1 Implementation specific events from the DSPRAM block
+
+event:0x440 counters:0,2 um:zero minimum:500 name:SYSTEM_EVENT_1 : 64-1 Implementation specific system event 1
+event:0x441 counters:0,2 um:zero minimum:500 name:SYSTEM_EVENT_3 : 65-1 Implementation specific system event 3
+event:0x442 counters:0,2 um:zero minimum:500 name:SYSTEM_EVENT_5 : 66-1 Implementation specific system event 5
+event:0x443 counters:0,2 um:zero minimum:500 name:SYSTEM_EVENT_7 : 67-1 Implementation specific system event 7
+event:0x444 counters:0,2 um:zero minimum:500 name:OCP_ALL_CACHEABLE_REQUESTS : 68-1 All OCP cacheable requests accepted
+event:0x445 counters:0,2 um:zero minimum:500 name:OCP_READ_CACHEABLE_REQUESTS : 69-1 OCP cacheable read request accepted
+event:0x446 counters:0,2 um:zero minimum:500 name:OCP_WRITE_CACHEABLE_REQUESTS : 70-1 OCP cacheable write request accepted
+
+event:0x44a counters:0,2 um:zero minimum:500 name:FSB_25_50_FULL : 74-1 FSB 25-50% full
+event:0x44b counters:0,2 um:zero minimum:500 name:LDQ_25_50_FULL : 75-1 LDQ 25-50% full
+event:0x44c counters:0,2 um:zero minimum:500 name:WBB_25_50_FULL : 76-1 WBB 25-50% full
