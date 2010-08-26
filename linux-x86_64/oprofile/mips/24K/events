@@ -1,10 +1,12 @@
 #
 # MIPS 24K
 #
+
 # The 24K CPUs have two performance counters.
 #
-# Even/Odd counters are distinguished by setting bit 10 in the event mask
-# The kernel masks this bit out before writing the control register
+# Even/odd counters are distinguished by setting bit 10 in the event
+# mask. The kernel masks this bit out before writing the control
+# register.
 
 #
 # Events specific to both counters
@@ -135,9 +137,8 @@ event:0x431 counters:1 um:zero minimum:500 name:EJTAG_DATA_TRIGGERS : 49-1 EJTAG
 #  Some count events, others count stall cycles.
 #
 event:0x432 counters:1 um:zero minimum:500 name:FSB_25_50_FULL : 50-1 FSB 25-50% full
-event:0x433 counters:1 um:zero minimum:500 name:FSB_FULL_PIPE_STALLS : 51-1 FSB full pipeline stall cycles
+event:0x433 counters:1 um:zero minimum:500 name:FSB_FULL_STALLS : 51-1 FSB full pipeline stall cycles
 event:0x434 counters:1 um:zero minimum:500 name:LDQ_25_50_FULL : 52-1 LDQ 25-50% full
-event:0x435 counters:1 um:zero minimum:500 name:LDQ_FULL_PIPE_STALLS : 53-1 LDQ full pipeline stall cycles
+event:0x435 counters:1 um:zero minimum:500 name:LDQ_FULL_STALLS : 53-1 LDQ full pipeline stall cycles
 event:0x436 counters:1 um:zero minimum:500 name:WBB_25_50_FULL : 54-1 WBB 25-50% full
-event:0x437 counters:1 um:zero minimum:500 name:WBB_FULL_PIPE_STALLS : 55-1 WBB full pipeline stall cycles
-
+event:0x437 counters:1 um:zero minimum:500 name:WBB_FULL_STALLS : 55-1 WBB full pipeline stall cycles
