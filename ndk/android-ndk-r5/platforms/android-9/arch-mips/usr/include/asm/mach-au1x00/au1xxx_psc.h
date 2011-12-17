@@ -1,0 +1,1 @@
+../../../../../../../platforms/android-8/arch-mips/usr/include/asm/mach-au1x00/au1xxx_psc.h
