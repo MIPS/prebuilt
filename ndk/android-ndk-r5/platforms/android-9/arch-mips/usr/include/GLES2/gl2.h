@@ -1,1 +1,0 @@
-../../../../../../platforms/android-8/arch-mips/usr/include/GLES2/gl2.h
