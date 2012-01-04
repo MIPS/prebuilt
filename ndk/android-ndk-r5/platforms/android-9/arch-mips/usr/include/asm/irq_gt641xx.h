@@ -1,1 +1,0 @@
-../../../../../../platforms/android-8/arch-mips/usr/include/asm/irq_gt641xx.h

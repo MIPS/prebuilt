@@ -1,1 +1,0 @@
-../../../../../../../platforms/android-8/arch-mips/usr/include/asm/sibyte/sb1250_scd.h

@@ -1,1 +1,0 @@
-../../../../../../platforms/android-8/arch-mips/usr/include/net/if_ieee1394.h
